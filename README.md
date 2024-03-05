@@ -69,7 +69,7 @@ We load the best Scatnet model that has a 89.59% of accuracy and make inference 
 ## When Scatnet Works Better
 We take the initial dataset and we select only 
 - 46 images of people with glasses 
-- 32 images of people with no glasses
+- 32 images of people with no glasses\
 We found that CNN's best accuracy on fold on train is 66.7% and on test is 59.3%.\
 On the other hand, Scatnet’s best accuracy on fold on train is 73.33% and on test is 92.4%.
 
