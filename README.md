@@ -10,13 +10,32 @@ Finally, application of XAI algorithms on the two networks implemented and a sta
 
 
 
-
 ### Requirements
 
 Install conda env:
 
 ```console
   $ conda create --name <env> --file requirements.txt
+```
+
+[Download Dataset](https://www.kaggle.com/datasets/jorgebuenoperez/datacleaningglassesnoglasses) and extract it in the root folder with archive_488 named folder.
+
+```console
+  root
+   |-- img
+   |-- model
+   |-- archive_488
+   |   |-- Images
+   |   |   |-- Images
+   |   |   |   |-- glasses
+   |   |   |   |   |-- ...
+   |   |   |   |-- no_glasses
+   |   |   |   |   |-- ...
+   |   |-- glasses
+   |   |-- no_clear
+   |   |-- no_glasses
+   |-- ...
+   |-- ...
 ```
 
 
@@ -26,7 +45,7 @@ Install conda env:
 
 ## Dataset
 
-[Download Dataset](https://www.kaggle.com/datasets/jeffheaton/glasses-or-no-glasses) 
+
 
 We select a dataset that contains 4920 RGB labelled images of people with glasses (2769) or without glasses (2151) with shape 1024x1024.[1] The dataset is divided into 3936 train images and 984 test images. We resize all the images in 128x128 and we apply data augmentation (RandomRotation, RandomHorizontalFlip, RandomVerticalFlip, ColorJitter) on the train dataset to increase the image’s diversity. 
 
@@ -75,4 +94,6 @@ On the other hand, Scatnet’s best accuracy on fold on train is 73.33% and on t
 
 - [@albertocaporusso](https://github.com/albertocaporusso)
 - [@SerenaDeAntoni](https://github.com/SerenaDeAntoni)
+- [@enricozorzi](https://github.com/enricozorzi)
+
 
