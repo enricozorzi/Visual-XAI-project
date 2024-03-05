@@ -37,7 +37,7 @@ We load the best CNN model that has a 98% of accuracy and make inference on it w
 - F1 score:  0.99
 - Accuracy:  0.99
 
-![Confusion Matrix CNN](https://github.com/enricozorzi/Visual-XAI-project/blob/main/img/confuision%20matrix%20cnn.png?raw=true)
+![Confusion Matrix CNN](https://github.com/enricozorzi/Visual-XAI-project/blob/main/img/confusion%20matrix%20cnn.png?raw=true)
 
 
 ## Confusion Matrix ScatNet
