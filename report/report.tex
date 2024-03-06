@@ -74,19 +74,27 @@ about 787 images. After training and validating the model 5 times, we compute ac
 \subsection{CNN’s Train and Validation}
 We trained our net for 50 epochs across the 5 folds. The validation step and the metrics (train and validation accuracy, loss and f1) are computed after each epoch. After each fold the model is saved. At the end of the training step we save the best model and all the train metrics in a dataframe. We also calculate the mean and the standard deviation of the accuracy across all the folds.
 
-    \begin{table}[h]
-        
-        \begin{tabular}{|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|}
-        \hline
-        \multicolumn{1}{|c|}{Fold}& \multicolumn{1}{c|}{F1 (Val)} & \multicolumn{1}{c|}{F1 (Train)} & \multicolumn{1}{c|}{Accuracy (Val)} & \multicolumn{1}{c|}{Accuracy (Train)} & \multicolumn{1}{c|}{Loss (Val)} \\ \hline
-        fold 1  & 0.92625     & 0.932328                   & 0.909188          & 0.915203  & 0.387399                \\ \hline
-        fold 2  & 0.938097    & 0.930022                   & 0.921449          & 0.912906  & 0.392215                \\ \hline
-        fold 3  & 0.921491    & 0.92541                    & 0.901728            & 0.907666  & 0.404772                \\ \hline
-        fold 4  & 0.910947    & 0.921576                   & 0.892681          & 0.903138  & 0.411598                \\ \hline
-        fold 5  & 0.934723    & 0.937001                   & 0.918551          & 0.924725  & 0.37091               \\ \hline
-        \end{tabular}
-        \caption{CNN mean metrics (F1 score, accuracy and Loss) for each fold in train and test}
+\begin{table}[h]
+    \begin{tabular}{ccccccc}
+    \hline
+    Fold & F1 (Val) & F1 (Train) & Accuracy (Val) & Accuracy (Train) & Loss (Val) & Loss (Train) \\
+    \hline
+    fold 1 & 0.979452 & 0.991698 & 0.977157 & 0.990788 & 0.32351 & 0.313265 \\
+    \hline
+    fold 2 & 0.988479 & 0.995166 & 0.987294 & 0.994601 & 0.358843 & 0.313266 \\
+    \hline
+    fold 3 & 0.971494 & 0.986902 & 0.968234 & 0.985392 & 0.314793 & 0.313358 \\
+    \hline
+    fold 4 & 0.971963 & 0.99258 & 0.969504 & 0.991743 & 0.345197 & 0.313286 \\
+    \hline
+    fold 5 & 0.975225 & 0.992797 & 0.972046 & 0.992061 & 0.321786 & 0.313378 \\
+    \hline
+    mean & 0.977847 & 0.991586 & 0.975547 & 0.990631 & 0.335586 & 0.313293 \\
+    \hline
+    \end{tabular}
+    \caption{CNN metrics for each fold in train and test and the mean of them}
     \end{table}
+    
     
     \begin{figure}[H]
         
@@ -105,7 +113,8 @@ We trained our net for 50 epochs across the 5 folds. The validation step and the
 \subsection{ScatNet model}
 We implement a Scatnet using the same classifier as the CNN: 3 fully connected layers in which
 ReLU activation functions are applied after each layer. The main difference between the CNN and
-the Scatnet implementation is the presence of the Scattering as a feature extractor.
+the Scatnet implementation is the presence of the Scattering as a feature extractor.\\
+
 Scattering in image processing refers to a technique used for extracting meaningful features from
 images. It’s a method that aims to create a more robust representation of images by capturing
 both low and high-frequency information.
@@ -150,16 +159,25 @@ the folds. All the steps and the extracted parameters are the same as in the CNN
 
 \begin{table}[h]
         
-    \begin{tabular}{|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|}
+    \begin{tabular}{ccccccc}
     \hline
-    \multicolumn{1}{|c|}{Fold}& \multicolumn{1}{c|}{F1 (Val)} & \multicolumn{1}{c|}{F1 (Train)} & \multicolumn{1}{c|}{Accuracy (Val)} & \multicolumn{1}{c|}{Accuracy (Train)} & \multicolumn{1}{c|}{Loss (Val)} \\ \hline
-    fold 1  & 0.92625     & 0.932328                   & 0.909188          & 0.915203  & 0.387399                \\ \hline
-    fold 2  & 0.938097    & 0.930022                   & 0.921449          & 0.912906  & 0.392215                \\ \hline
-    fold 3  & 0.921491    & 0.92541                    & 0.901728            & 0.907666  & 0.404772                \\ \hline
-    fold 4  & 0.910947    & 0.921576                   & 0.892681          & 0.903138  & 0.411598                \\ \hline
-    fold 5  & 0.934723    & 0.937001                   & 0.918551          & 0.924725  & 0.37091               \\ \hline
+    %\multicolumn{1}{|c|}{Fold}& \multicolumn{1}{c|}{F1 (Val)} & \multicolumn{1}{c|}{F1 (Train)} & \multicolumn{1}{c|}{Acc (Val)} & \multicolumn{1}{c|}{Acc (Train)} & \multicolumn{1}{c|}{Loss (Val)}& \multicolumn{1}{c|}{Loss (Train)} \\
+    Fold & F1 (Val) & F1 (Train) & Accuracy (Val) & Accuracy (Train) & Loss (Val) & Loss (Train) \\
+    \hline
+    fold 1 & 0.911063 & 0.91912 & 0.895939 & 0.910102 & 0.37974 & 0.436957 \\
+    \hline
+    fold 2 & 0.868342 & 0.906178 & 0.833545 & 0.89584 & 0.621236 & 0.476888 \\
+    \hline
+    fold 3 & 0.889124 & 0.929003 & 0.866582 & 0.921562 & 0.41941 &  0.431374 \\
+    \hline
+    fold 4 & 0.885033 & 0.929634 & 0.865311 & 0.92188 & 0.395785 &  0.416995\\
+    \hline
+    fold 5 & 0.908898 & 0.912331 & 0.890724 & 0.903144 & 0.461326 & 0.427437\\
+    \hline
+    mean & 0.88839 & 0.920984 & 0.865344 & 0.912346 & 0.454043 & 0.440554 \\
+    \hline
     \end{tabular}
-    \caption{ Scatnet mean metrics (F1 score, accuracy and Loss) for each fold in train e test}
+    \caption{ Scatnet metrics for each fold in train and test and the mean of them}
 \end{table}
 
 \begin{figure}[H]
