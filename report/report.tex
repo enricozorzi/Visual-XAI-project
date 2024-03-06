@@ -1,0 +1,465 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{subfig}
+\usepackage{hyperref}
+\usepackage[font=footnotesize,labelfont=bf]{caption}
+
+\usepackage[a4paper, total={6in, 10.2in}]{geometry}
+\graphicspath{ {./img/} }
+
+
+\title{\large\bfseries EXPLAINABLE AI - Project 2 \\Follow-up \\ VISUAL INTELLIGENCE - Project 1\\}
+
+\author{\textit{Author:}\\Serena De Antoni, Gaetano Alberto Caporusso, Enrico Zorzi}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+    Implementation of a 2D Convolutional Neural Network (CNN) and a ScatNet for image classification, comparison of the parameters for understanding which is the best for the task under analysis, and display the filters extracted from the CNN and the ScatNet. Reduction of the number of images until ScatNet performs better than CNN. Finally, application of XAI algorithms (IG, LIME and SHAP) on the two networks implemented and a statistical analysis on the final attributions.
+\end{abstract}
+
+\section{PIPELINE}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+    \item Select a dataset of our choice.
+    \item Implement the Convolutional Neural Network.
+    \item Perform k-fold cross validation to assess the model's generalization ability and compute the mean accuracy and the mean F1 score across the k folds.
+    \item Implement the ScatNet using the same classifier used for the CNN.
+    \item Perform k-fold cross validation also for the ScatNet like the point 3 for the CNN, and extract the mean accuracy and F1 score across the k folds.
+    \item Extract the filters from both models.
+    \item Reduce the number of images to see when ScatNet works better than CNN.
+    \item Implement the Integrated Gradients XAI algorithm from scratch and perform a post-hoc analysis on three different test images.
+    \item Using the Captum library, perform a post-hoc analysis using the Integrated Gradients provided by the library.
+    \item Perform a post-hoc XAI analysis using LIME and SHAP attribution methods.
+    \item Compare the attributions extracted from your XAI model (IG) and the models defined by the library choice (IG, LIME and SHAP), performing a statistical analysis to assess the differences/similarities between the two methods and also a statistical analysis regarding the attributions extracted.
+    \item Comment the results you obtained.
+\end{itemize}
+
+\section{DATASET}
+We select a dataset that contains 4920 RGB labelled images of people with glasses (2769) or without glasses (2151) with shape 1024x1024. The dataset is divided into 3936 train images and 984 test images. We resize all the images to 128x128 and apply data augmentation (RandomRotation, RandomHorizontalFlip, RandomVerticalFlip, ColorJitter) on the train dataset to increase the image’s diversity.
+
+%insert image of the dataset
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\textwidth]{dataset}
+    \caption{Sampled images from dataset after the data augmentation}
+    \label{fig:dataset}
+\end{figure}
+ 
+
+\section{CNN IMPLEMENTATION}
+\subsection{CNN model}
+We implement a CNN with 3 convolutional layers and 3 fully connected layers. Each convolutional layer is followed by 
+a max pooling operation, and Rectified Linear Unit (ReLU) activation function is applied after each layer.
+
+\subsection{5-Fold Cross Validation}
+K-fold cross-validation is a technique used in machine learning to assess the model's generalization ability. 
+It helps to ensure that the model's performance estimated is less dependent on the particular way the data is
+ split into training and testing sets. The basic idea is to split the dataset into K subsets (or "folds") of 
+ approximately equal size. The model is then trained K times, each time using K-1 of the folds as training 
+ data and the remaining fold as validation data. This process is repeated K times, with each fold used 
+ exactly once as the validation data. The value of K can vary depending on the size of the dataset and
+  computational resources available: common choices for K include 5-fold, 10-fold, and leave-one-out
+(where K equals the number of samples). We decided to use 5 folds for our model, each one containing
+about 787 images. After training and validating the model 5 times, we compute accuracy, f1, loss for
+    each fold and, in the end, the mean accuracy, the mean f1 and the standard deviation of the accuracy
+    across all the folds.
+
+\subsection{CNN’s Train and Validation}
+We trained our net for 50 epochs across the 5 folds. The validation step and the metrics (train and validation accuracy, loss and f1) are computed after each epoch. After each fold the model is saved. At the end of the training step we save the best model and all the train metrics in a dataframe. We also calculate the mean and the standard deviation of the accuracy across all the folds.
+
+    \begin{table}[h]
+        
+        \begin{tabular}{|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|}
+        \hline
+        \multicolumn{1}{|c|}{Fold}& \multicolumn{1}{c|}{F1 (Val)} & \multicolumn{1}{c|}{F1 (Train)} & \multicolumn{1}{c|}{Accuracy (Val)} & \multicolumn{1}{c|}{Accuracy (Train)} & \multicolumn{1}{c|}{Loss (Val)} \\ \hline
+        fold 1  & 0.92625     & 0.932328                   & 0.909188          & 0.915203  & 0.387399                \\ \hline
+        fold 2  & 0.938097    & 0.930022                   & 0.921449          & 0.912906  & 0.392215                \\ \hline
+        fold 3  & 0.921491    & 0.92541                    & 0.901728            & 0.907666  & 0.404772                \\ \hline
+        fold 4  & 0.910947    & 0.921576                   & 0.892681          & 0.903138  & 0.411598                \\ \hline
+        fold 5  & 0.934723    & 0.937001                   & 0.918551          & 0.924725  & 0.37091               \\ \hline
+        \end{tabular}
+        \caption{CNN mean metrics (F1 score, accuracy and Loss) for each fold in train and test}
+    \end{table}
+    
+    \begin{figure}[H]
+        
+        \centering
+        \includegraphics[width=1\textwidth]{CNN_accuracy_curve.png}
+        \caption{CNN accuracy curve. In the images the coloured lines represent the accuracy for each fold, the black one represents the total
+        average accuracy across all folds}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\textwidth]{CNN_mean.png}
+        \caption{CNN comparison between mean train and mean validation metrics}
+    \end{figure}
+\section{SCATNET IMPLEMENTATION}
+\subsection{ScatNet model}
+We implement a Scatnet using the same classifier as the CNN: 3 fully connected layers in which
+ReLU activation functions are applied after each layer. The main difference between the CNN and
+the Scatnet implementation is the presence of the Scattering as a feature extractor.
+Scattering in image processing refers to a technique used for extracting meaningful features from
+images. It’s a method that aims to create a more robust representation of images by capturing
+both low and high-frequency information.
+Scattering works:
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+\item First with a wavelet transform of the input image, convolving the image with a wavelet
+(passa-banda) filter at multiple (L) scales and orientations.
+\item After is calculated the modulus of the resulting coefficient for discarding their phase
+information. This step helps in making the representation invariant to phase changes.
+\item Then the modulus coefficients are spatially pooled, and that involves dividing the images
+into smaller spatial regions and aggregating the modulus coefficients within each region.
+Pooling helps in reducing the dimensionality of the representation and making it more
+robust to small spatial translation or deformations in the input image.
+The above steps are repeated J times for each scale and in each iteration the input to the wavelet
+transform is the output of the previous iteration
+\end{itemize}
+\begin{gather*}
+    U[\lambda]x = |x \star \psi_{\lambda}| \quad \quad \quad p = (\lambda_1, \lambda_2, ..., \lambda_n)\\\\
+\end{gather*}
+\begin{equation}
+    U[p]x = U[\lambda_m]...U[\lambda_2]U[\lambda_1]x = ||x \star \psi_{\lambda_1}| \quad \star \psi_{\lambda_2}| \quad ... \star \psi_{\lambda_m}| 
+\end{equation}
+\begin{gather*}
+U[0]x = x 
+\end{gather*}
+\begin{equation}
+    S[p]x(u) = U[p]x \star \phi_{2J}(u) = \int U[p]x(v)\phi_{2J}(u - v) dv = ||x \star \psi_{\lambda_1}| \quad \star \psi_{\lambda_2}| \quad ... \star \psi_{\lambda_m}| \quad \star \phi_{2J}(u)
+\end{equation}
+\begin{gather*}
+    S[0]x = x \star \phi_{2J}(u)
+\end{gather*}
+
+\subsection{CNN vs ScatNet}
+The main difference between CNN and Scatnet for the feature extraction is that in the Scatnet the
+filters are known and are usually wavelets. Therefore the filters don’t have to be calculated in the
+network training phase and this saves us a lot of computing power.
+
+\subsection{Scatnet’s Train and Validation}
+Also in this case we perform 5-fold cross validation and we trained our net for 100 epochs across
+the folds. All the steps and the extracted parameters are the same as in the CNN.  
+
+\begin{table}[h]
+        
+    \begin{tabular}{|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|}
+    \hline
+    \multicolumn{1}{|c|}{Fold}& \multicolumn{1}{c|}{F1 (Val)} & \multicolumn{1}{c|}{F1 (Train)} & \multicolumn{1}{c|}{Accuracy (Val)} & \multicolumn{1}{c|}{Accuracy (Train)} & \multicolumn{1}{c|}{Loss (Val)} \\ \hline
+    fold 1  & 0.92625     & 0.932328                   & 0.909188          & 0.915203  & 0.387399                \\ \hline
+    fold 2  & 0.938097    & 0.930022                   & 0.921449          & 0.912906  & 0.392215                \\ \hline
+    fold 3  & 0.921491    & 0.92541                    & 0.901728            & 0.907666  & 0.404772                \\ \hline
+    fold 4  & 0.910947    & 0.921576                   & 0.892681          & 0.903138  & 0.411598                \\ \hline
+    fold 5  & 0.934723    & 0.937001                   & 0.918551          & 0.924725  & 0.37091               \\ \hline
+    \end{tabular}
+    \caption{ Scatnet mean metrics (F1 score, accuracy and Loss) for each fold in train e test}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{Scatnet_accuracy_curve.png}
+    \caption{Scatnet accuracy curve. The
+    coloured lines
+    represent the
+    accuracy for each
+    fold, the black one
+    represents the total
+    average accuracy
+    across all folds.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{Scatnet_mean.png}
+    \caption{Comparison between mean train and validation metrics}
+\end{figure}
+
+\section{RESULT}
+\subsection{CNN's test}
+We load the best CNN model that has a 98.73\% of accuracy and make inference on it with the test
+set. We computed f1 score, accuracy and the confusion matrix and the returned values are:
+\begin{gather*}
+    F1 score = 0.99 \quad \quad \quad Accuracy = 0.99 
+\end{gather*}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\textwidth]{confusion matrix scatnet.png}
+    \caption{CNN confusion matrix of test}
+\end{figure}
+
+\subsection{ScatNet's test}
+We load the best Scatnet model that has a 89.59\% of accuracy and make inference on it with the
+test set. We computed f1 score, accuracy and the confusion matrix and the returned values are:
+\begin{gather*}
+    F1 score = 0.94 \quad \quad \quad Accuracy = 0.92
+\end{gather*}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\textwidth]{confusion matrix scatnet.png}
+    \caption{Scatnet confusion matrix of test}
+\end{figure}
+
+\section{FILTER}
+\subsection{CNN's filters}
+In the next images we have the kernels of the convolutional layers. The kernels of the first one
+usually have an edge detector behaviour, in our case this doesn’t happen and since the model has
+still a good accuracy we might deduct that it learns more deep and complex features
+\begin{figure}[H]
+    \centering
+    \subfloat[First layer]{\includegraphics[width=0.4\textwidth]{CNN_kernel_1layer.png}\label{fig:1}}
+    \subfloat[Second layer]{\includegraphics[width=0.4\textwidth]{CNN_kernel_2layer.png}\label{fig:2}}\hspace{20em}
+    \subfloat[Third layer]{\includegraphics[width=0.2\textwidth]{CNN_kernel_3layer.png}\label{fig:3}}
+    \caption{CNN filter extracted}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{CNN_feature_maps.png}
+    \caption{Two CNN feature maps: one of a person without glasses and another of a person with glasses.}
+\end{figure}
+
+\subsection{ScatNet's filters}
+As we already said, in this case the filters are known and not learned during the training phase. We
+can visualize them using the Fourier transform:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Scatnet_filter.png}
+    \caption{Scatnet filter}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Scatnet_featuremaps.png}
+    \caption{Scattering output}
+\end{figure}
+
+\section{WHEN SCATNET WORKS BETTER THAN CNN}
+We take the initial dataset and we select only 46 images of people with glasses and 32 images of
+people with no glasses. We found that CNN's best accuracy on fold on train is 66.7\% and on test is
+59.3\%. On the other hand, Scatnet’s best accuracy on fold on train is 73.33\% and on test is 62.0\%.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{CM_less_img.png}
+    \caption{CNN (sx) and Scatnet (dx) confusion matrix of tests with less images}
+\end{figure}
+
+\section{NTEGRATED GRADIENTS}
+\subsection{Integrated Gradients (IG)}
+Integrated Gradients (IG) is a method employed in eXplainable AI to explain the influence of input
+features on the predictions of machine learning models. It addresses the challenge of model
+interpretability by attributing a prediction to its relevant features. The technique calculates the
+importance of each feature by integrating the gradients of the model’s prediction function with
+respect to the input features along a straight path from a baseline input to the actual input. The
+integral of integrated gradients can be efficiently approximated via a summation. Formally , for a
+specific feature: \\\\
+\begin{equation}
+IntegratedGrads_{i}^{approx}(x)::= (x_i - x'_i) \sum_{k=1}^{m}\frac{\partial F(x' + \frac{k}{m}\cdot (x-x'))}{\partial x_i}\cdot \frac{1}{m}
+\end{equation}
+where:
+\begin{itemize}
+    \item $x'_i$ = Baseline value of feature $i$
+    \item $x_i$ = Actual value of feature $i$ in input $x$
+    \item $F$ = Model’s prediction function
+    \item $m$ =  Number of steps in the Riemman approximation of the integral
+    \item $\sum_{k=1}^{m} $ = Summation computes the average of the gradients with respect to feature $i$ along this path
+\end{itemize}
+
+\subsection{Baseline}
+For our tests we implement a zero (black) baseline and a random normalized baseline. In the
+integrated gradients we use both the baseline but for Lime and Shap we use only the black one.
+\begin{figure}[H]
+    \centering
+    \subfloat[Baseline Zero]{\includegraphics[width=0.9\textwidth]{baseline_zero.png}\label{fig:1}}\hspace{20em}
+    \subfloat[aseline Rand]{\includegraphics[width=0.9\textwidth]{baseline_rand.png}\label{fig:2}}
+\end{figure}
+
+\subsection{Integrated gradients by scratch}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{IG_formula.png}
+\end{figure}
+%make a numeric list
+\begin{enumerate}
+    \item Generate alphas $\alpha $
+    \item Generate a linear interpolation between the baseline and the original image:
+   
+    \begin{align*}IntegratedGrads_{i}^{approx}(x)::= (x_i - x'_i)\times  \sum_{k=1}^{m}\frac{\partial F(\overset{\textup{interplate m images at k intervals}}{\overbrace{x' + \frac{k}{m}\cdot (x-x')}})}{\partial x_i}\times \frac{1}{m}\sum \end{align*}
+    
+    \item Compute gradients between model output predictions with respect to input features to
+    measure the relationship between changes to a feature and changes in the model's
+    predictions:
+
+    \begin{align*}IntegratedGrads_{i}^{approx}(x)::= (x_i - x'_i)\times  \sum_{k=1}^{m}\frac{\overset{\textup{\textup{Compute Gradients}}}{\overbrace{\partial F(\textup{interpolated images})}}}{\partial x_i}\times \frac{1}{m}\sum \end{align*}
+
+    \item Integral approximation through averaging gradients
+
+    \begin{align*}IntegratedGrads_{i}^{approx}(x) = (x_i - x'_i) \times \sum_{k=1}^{m} \textup{\textbf{gradients(interpolated images)}} \times \frac{1}{m}\sum \end{align*}
+
+    \item Scale integrated gradients with respect to original image
+
+    \begin{align*}IntegratedGrads_{i}^{approx}(x)::= (x_i - x'_i)\times \textup{integrated gradients}\end{align*}
+\end{enumerate}
+The reason this step is necessary is to make sure that the attribution values accumulated
+across multiple interpolated images are in the same units and faithfully represent the pixel
+importances on the original image.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{IG_scratch.png}
+    \caption{Example of the results of integrated gradients by scratch, in the first case with the zero baseline and in the second case with
+    the random normalized baseline}
+\end{figure}
+
+\subsection{Integrated gradients by Captum}
+Captum provides a generic implementation of integrated gradients that can be used with any
+PyTorch model.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{IG_captum.png}
+    \caption{ Example of the results of Captum’s integrated gradients, in the first case with the zero baseline and in the second case with
+    the random normalized baseline}
+\end{figure}
+
+\section{LIME}
+LIME (Local Interpretable Model-Agnostic Explanations) [4] is a technique designed to provide local
+interpretability for machine learning models. In image classification tasks, deep learning models
+often act as "black-boxes" making it challenging to understand why they classify images the way
+they do. LIME offers a solution to this problem by providing local and interpretable explanations
+for individual image predictions.
+Formally when applied to images, the steps involved in LIME are as follows:
+\begin{itemize}
+    \item \textbf{Select an Image:} Choose a specific image for which you want to understand the model's prediction.
+    \item \textbf{Generate Perturbed Images:} Create slightly modified versions of the original image by applying small changes, such as adding noise or masking parts of the image.
+    \item \textbf{Obtain Predictions:} Use the machine learning model to predict the class labels for the perturbed images. This step generates a dataset with predictions for the modified images.
+    \item \textbf{Train an Interpretable Model:} Train a simple and interpretable model, such as a linear classifier or decision tree, using the perturbed images and their corresponding predictions from the machine learning model.
+    \item \textbf{Interpretation:} Analyze the coefficients, decision boundaries, or feature importance of the interpretable model to understand which parts of the image influenced the model's prediction the most. This helps provide insights into why the original model made the prediction it did for the selected image.
+\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{LIME.png}
+    \caption{CNN (sx) and Scatnet (dx) Results of Lime in three different images}
+    \label{fig:dataset}
+\end{figure}
+
+\section{SHAP}
+SHAP (SHapley Additive exPlanations) [5] is a powerful technique used for explaining the
+predictions of machine learning models. It offers a principled approach to understanding the
+importance of different features. When applied to images, SHAP attributes the importance of each
+pixel to the model's prediction. The main steps are:
+\begin{itemize}
+    \item \textbf{Feature Attribution:} Pixels are treated as features, and SHAP calculates the contribution of each pixel to the model's prediction.
+    \item \textbf{SHAP Values:} These values quantify the impact of each pixel on the model's output, providing local interpretability.
+    \item \textbf{Visualization:} SHAP values can be visualized, helping to identify influential regions in the image through techniques like summary plots or heatmaps.
+\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{SHAP.png}
+    \caption{ CNN (first line) and Scatnet (second line) examples of SHAP on two different images, in the first case with glasses and in the
+    second one without glasses}
+\end{figure}
+
+\section{COMPARISON AMONG XAI METHODS}
+\subsection{Test Images}
+For all our comparisons and tests we used these 3 images :
+\begin{figure}[H]
+    \centering
+    \subfloat[Glasses]{\includegraphics[width=0.2\textwidth]{face-80.jpg}\label{fig:1}}\hspace{1em}
+    \subfloat[No Glasses]{\includegraphics[width=0.2\textwidth]{face-1533.jpg}\label{fig:2}}\hspace{1em}
+    \subfloat[Sun Glasses]{\includegraphics[width=0.2\textwidth]{face-17.jpg}\label{fig:3}}\hspace{1em}
+    \caption{tests original images}
+\end{figure}
+\subsection{SHAP vs IG}
+Visual comparison of SHAP and Integrated Gradients methods.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{shap_vs_ig.png}
+    \caption{CNN (sx) and Scatnet (dx) comparison between SHAP and integrated gradients methods}
+\end{figure}
+\pagebreak
+\subsection{Attributions Histograms}
+For visualization purposes we have normalized IG, IG captum and SHAP values. We considered
+values above 0.2 for our histograms. We can notice that IG and IG captum have similar
+distributions of attributions and we can find some similarities also with SHAP.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{histo_CNN.png}
+    \caption{CNN Histograms}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{histo_scatnet.png}
+    \caption{Scatnet Histograms}
+\end{figure}
+\pagebreak
+\subsection{Correlation between attributions}
+In figs 22,23,24 can see a linear correlation between IG and IG Captum in both the models. But on
+the other hand we can see that there is a correlation between IG and SHAP only with the Scatnet
+model. Regarding SHAP, we can observe that in the CNN, the majority of points concentrate around
+1, while in the SCATNET, we have more -1. This could be attributed to the fact that LIME focuses on
+the overall image, whereas the other two methods assign values only to a small portion of the
+image, in our case, the central area of the face.\\
+In tables 3,4,5 we calculate the distances between the baricenters (mean of the distributions) and
+the distances between the spreads (standard deviations). The most significant results are those
+concerning the comparison between the two methods of Integrated Gradients (IG) and between IG
+and SHAP, as we are able to compare values that have the same distribution range. As expected,
+we found a very low distance in both models, given the linear relationship between the IG
+methods. However, we found a higher value, which we still consider significant, between IG and
+SHAP. The considerations made so far are also reflected in the correlation coefficient values
+obtained (Table 6).
+\begin{figure}[H]
+    \centering
+    \subfloat[CNN (Glasses)]{\includegraphics[width=0.45\textwidth]{correlation_CNN.png}\label{fig:1}}\hspace{1em}
+    \subfloat[ScatNet(Glasses)]{\includegraphics[width=0.45\textwidth]{correlation_Scatnet.png}\label{fig:2}}
+    \caption{The correlation between CNN and ScatNet attribution methods (IG, IG captum, SHAP, and Lime)}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{distance_CNN.png}
+    \caption{CNN (sx) and Scatnet(dx) table distances of the image with the person with glasses}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \subfloat[CNN(No Glasses)]{\includegraphics[width=0.45\textwidth]{correlation_CNN_noglass.png}\label{fig:1}}\hspace{1em}
+    \subfloat[ScatNet(No Glasses)]{\includegraphics[width=0.45\textwidth]{correlation_Scatnet_noglass.png}\label{fig:2}}
+    \caption{The correlation between CNN and ScatNet attribution methods (IG, IG captum, SHAP, and Lime)}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{distance_CNN_noglass.png}
+    \caption{CNN (sx) and Scatnet(dx) table distances of the image with the person without glasses}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \subfloat[CNN(Sun Glasses)]{\includegraphics[width=0.45\textwidth]{correlation_CNN_sunglass.png}\label{fig:1}}\hspace{1em}
+    \subfloat[ScatNet(Sun Glasses)]{\includegraphics[width=0.45\textwidth]{correlation_Scatnet_sunglass.png}\label{fig:2}}
+    \caption{The correlation between CNN and ScatNet attribution methods (IG, IG captum, SHAP, and Lime)}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{distance_CNN_sunglass.png}
+    \caption{CNN (sx) and Scatnet(dx) table distances of the image with the person with glasses}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{correlation_coef.png}
+    \caption{CNN (sx) and Scatnet(dx) correlation coefficients}
+\end{figure}
+
+\begin{thebibliography}{widest entry}
+    \bibitem{1}  \href{https://www.kaggle.com/datasets/jorgebuenoperez/datacleaningglassesnoglasses}{Glasses or No Glasses Dataset}
+    \bibitem{2}  \href{https://github.com/tensorflow/docs/blob/master/site/en/tutorials/interpretability/integrated_gradients.ipynb}{Integrated Gradients from scratch - Tensorflow}
+    \bibitem{3}  \href{https://arxiv.org/pdf/1602.04938}{LIME: Local Interpretable Model-agnostic Explanations}
+    \bibitem{4}  \href{https://captum.ai/docs/extension/integrated_gradients}{Integrated Gradients - Captum Documentation}
+    \bibitem{5}  \href{http://papers.nips.cc/paper/7062-a-unified-approach-to-interpreting-model-predictions.pdf}{A Unified Approach to Interpreting Model Predictions, Scott M. Lundberg, Su-In Lee} 
+    \end{thebibliography}
+    
+\end{document}
