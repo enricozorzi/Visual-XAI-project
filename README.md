@@ -6,7 +6,7 @@ Implementation of a 2D Convolutional Neural Network (CNN) and a ScatNet for imag
 Reduce the number of images until ScatNet performs better than CNN. 
 Finally, application of XAI algorithms on the two networks implemented and a statistical analysis on the final attributions. 
 
-
+Report available [here](https://github.com/enricozorzi/Visual-XAI-project/blob/main/report/report.pdf)
 
 
 

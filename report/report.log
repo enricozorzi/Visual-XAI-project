@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.1.30)  6 MAR 2024 19:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.1.30)  15 MAR 2024 10:50
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -504,26 +504,26 @@ Package pdftex.def Info: ./img//CNN_feature_maps.png  used on input line 241.
 <./img//Scatnet_filter.png, id=183, 852.786pt x 328.8285pt>
 File: ./img//Scatnet_filter.png Graphic file (type png)
 <use ./img//Scatnet_filter.png>
-Package pdftex.def Info: ./img//Scatnet_filter.png  used on input line 250.
+Package pdftex.def Info: ./img//Scatnet_filter.png  used on input line 249.
 (pdftex.def)             Requested size: 346.89731pt x 133.75684pt.
  [6 <./img//CNN_kernel_1layer.png> <./img//CNN_kernel_2layer.png> <./img//CNN_kernel_3layer.png> <./img//CNN_feature_maps.png>]
 <./img//Scatnet_featuremaps.png, id=198, 1144.0341pt x 162.6075pt>
 File: ./img//Scatnet_featuremaps.png Graphic file (type png)
 <use ./img//Scatnet_featuremaps.png>
-Package pdftex.def Info: ./img//Scatnet_featuremaps.png  used on input line 256.
+Package pdftex.def Info: ./img//Scatnet_featuremaps.png  used on input line 255.
 (pdftex.def)             Requested size: 346.89731pt x 49.30615pt.
 <./img//CM_less_img.png, id=199, 1151.80313pt x 409.53pt>
 File: ./img//CM_less_img.png Graphic file (type png)
 <use ./img//CM_less_img.png>
-Package pdftex.def Info: ./img//CM_less_img.png  used on input line 267.
+Package pdftex.def Info: ./img//CM_less_img.png  used on input line 266.
 (pdftex.def)             Requested size: 346.89731pt x 123.34111pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 273--280
+Underfull \hbox (badness 10000) in paragraph at lines 272--279
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 273--280
+Underfull \hbox (badness 10000) in paragraph at lines 272--279
 
  []
 
@@ -531,122 +531,122 @@ Underfull \hbox (badness 10000) in paragraph at lines 273--280
 <./img//baseline_zero.png, id=213, 1431.6687pt x 148.8762pt>
 File: ./img//baseline_zero.png Graphic file (type png)
 <use ./img//baseline_zero.png>
-Package pdftex.def Info: ./img//baseline_zero.png  used on input line 297.
+Package pdftex.def Info: ./img//baseline_zero.png  used on input line 296.
 (pdftex.def)             Requested size: 390.25534pt x 40.58101pt.
 <./img//baseline_rand.png, id=214, 1431.6687pt x 148.8762pt>
 File: ./img//baseline_rand.png Graphic file (type png)
 <use ./img//baseline_rand.png>
-Package pdftex.def Info: ./img//baseline_rand.png  used on input line 298.
+Package pdftex.def Info: ./img//baseline_rand.png  used on input line 297.
 (pdftex.def)             Requested size: 390.25534pt x 40.58101pt.
 <./img//IG_formula.png, id=215, 1234.6125pt x 217.5628pt>
 File: ./img//IG_formula.png Graphic file (type png)
 <use ./img//IG_formula.png>
-Package pdftex.def Info: ./img//IG_formula.png  used on input line 304.
+Package pdftex.def Info: ./img//IG_formula.png  used on input line 303.
 (pdftex.def)             Requested size: 346.89731pt x 61.12962pt.
 <./img//IG_scratch.png, id=216, 858.20625pt x 137.01187pt>
 File: ./img//IG_scratch.png Graphic file (type png)
 <use ./img//IG_scratch.png>
-Package pdftex.def Info: ./img//IG_scratch.png  used on input line 332.
+Package pdftex.def Info: ./img//IG_scratch.png  used on input line 331.
 (pdftex.def)             Requested size: 346.89731pt x 55.38287pt.
  [8 <./img//baseline_zero.png> <./img//baseline_rand.png> <./img//IG_formula.png>]
 <./img//IG_captum.png, id=234, 845.40843pt x 127.97812pt>
 File: ./img//IG_captum.png Graphic file (type png)
 <use ./img//IG_captum.png>
-Package pdftex.def Info: ./img//IG_captum.png  used on input line 342.
+Package pdftex.def Info: ./img//IG_captum.png  used on input line 341.
 (pdftex.def)             Requested size: 346.89731pt x 52.51236pt.
 <./img//LIME.png, id=235, 852.93657pt x 132.495pt>
 File: ./img//LIME.png Graphic file (type png)
 <use ./img//LIME.png>
-Package pdftex.def Info: ./img//LIME.png  used on input line 363.
+Package pdftex.def Info: ./img//LIME.png  used on input line 362.
 (pdftex.def)             Requested size: 346.89731pt x 53.88863pt.
  [9 <./img//IG_scratch.png> <./img//IG_captum.png> <./img//LIME.png>]
 <./img//SHAP.png, id=246, 873.2625pt x 435.87843pt>
 File: ./img//SHAP.png Graphic file (type png)
 <use ./img//SHAP.png>
-Package pdftex.def Info: ./img//SHAP.png  used on input line 380.
+Package pdftex.def Info: ./img//SHAP.png  used on input line 379.
 (pdftex.def)             Requested size: 346.89731pt x 173.15111pt.
 <./img//face-80.jpg, id=247, 1027.84pt x 1027.84pt>
 File: ./img//face-80.jpg Graphic file (type jpg)
 <use ./img//face-80.jpg>
-Package pdftex.def Info: ./img//face-80.jpg  used on input line 390.
+Package pdftex.def Info: ./img//face-80.jpg  used on input line 389.
 (pdftex.def)             Requested size: 86.72267pt x 86.71437pt.
 <./img//face-1533.jpg, id=248, 1027.84pt x 1027.84pt>
 File: ./img//face-1533.jpg Graphic file (type jpg)
 <use ./img//face-1533.jpg>
-Package pdftex.def Info: ./img//face-1533.jpg  used on input line 391.
+Package pdftex.def Info: ./img//face-1533.jpg  used on input line 390.
 (pdftex.def)             Requested size: 86.72267pt x 86.71437pt.
 <./img//face-17.jpg, id=249, 1027.84pt x 1027.84pt>
 File: ./img//face-17.jpg Graphic file (type jpg)
 <use ./img//face-17.jpg>
-Package pdftex.def Info: ./img//face-17.jpg  used on input line 392.
+Package pdftex.def Info: ./img//face-17.jpg  used on input line 391.
 (pdftex.def)             Requested size: 86.72267pt x 86.71437pt.
 <./img//shap_vs_ig.png, id=250, 1147.28625pt x 149.05687pt>
 File: ./img//shap_vs_ig.png Graphic file (type png)
 <use ./img//shap_vs_ig.png>
-Package pdftex.def Info: ./img//shap_vs_ig.png  used on input line 399.
+Package pdftex.def Info: ./img//shap_vs_ig.png  used on input line 398.
 (pdftex.def)             Requested size: 390.25534pt x 50.7014pt.
  [10 <./img//SHAP.png> <./img//face-80.jpg> <./img//face-1533.jpg> <./img//face-17.jpg> <./img//shap_vs_ig.png>]
 <./img//histo_CNN.png, id=263, 1183.7826pt x 1071.7641pt>
 File: ./img//histo_CNN.png Graphic file (type png)
 <use ./img//histo_CNN.png>
-Package pdftex.def Info: ./img//histo_CNN.png  used on input line 409.
+Package pdftex.def Info: ./img//histo_CNN.png  used on input line 408.
 (pdftex.def)             Requested size: 325.215pt x 294.43349pt.
 <./img//histo_scatnet.png, id=264, 1172.9421pt x 1071.7641pt>
 File: ./img//histo_scatnet.png Graphic file (type png)
 <use ./img//histo_scatnet.png>
-Package pdftex.def Info: ./img//histo_scatnet.png  used on input line 414.
+Package pdftex.def Info: ./img//histo_scatnet.png  used on input line 413.
 (pdftex.def)             Requested size: 325.215pt x 297.14822pt.
  [11 <./img//histo_CNN.png> <./img//histo_scatnet.png>]
 <./img//correlation_CNN.png, id=273, 1191.0096pt x 737.8767pt>
 File: ./img//correlation_CNN.png Graphic file (type png)
 <use ./img//correlation_CNN.png>
-Package pdftex.def Info: ./img//correlation_CNN.png  used on input line 435.
+Package pdftex.def Info: ./img//correlation_CNN.png  used on input line 434.
 (pdftex.def)             Requested size: 195.12767pt x 120.8887pt.
 <./img//correlation_Scatnet.png, id=274, 1191.0096pt x 737.8767pt>
 File: ./img//correlation_Scatnet.png Graphic file (type png)
 <use ./img//correlation_Scatnet.png>
-Package pdftex.def Info: ./img//correlation_Scatnet.png  used on input line 436.
+Package pdftex.def Info: ./img//correlation_Scatnet.png  used on input line 435.
 (pdftex.def)             Requested size: 195.12767pt x 120.8887pt.
 <./img//distance_CNN.png, id=275, 1294.08469pt x 209.28188pt>
 File: ./img//distance_CNN.png Graphic file (type png)
 <use ./img//distance_CNN.png>
-Package pdftex.def Info: ./img//distance_CNN.png  used on input line 441.
+Package pdftex.def Info: ./img//distance_CNN.png  used on input line 440.
 (pdftex.def)             Requested size: 390.25534pt x 63.11076pt.
 <./img//correlation_CNN_noglass.png, id=276, 1191.0096pt x 737.8767pt>
 File: ./img//correlation_CNN_noglass.png Graphic file (type png)
 <use ./img//correlation_CNN_noglass.png>
-Package pdftex.def Info: ./img//correlation_CNN_noglass.png  used on input line 447.
+Package pdftex.def Info: ./img//correlation_CNN_noglass.png  used on input line 446.
 (pdftex.def)             Requested size: 195.12767pt x 120.8887pt.
 <./img//correlation_Scatnet_noglass.png, id=277, 1191.0096pt x 737.8767pt>
 File: ./img//correlation_Scatnet_noglass.png Graphic file (type png)
 <use ./img//correlation_Scatnet_noglass.png>
-Package pdftex.def Info: ./img//correlation_Scatnet_noglass.png  used on input line 448.
+Package pdftex.def Info: ./img//correlation_Scatnet_noglass.png  used on input line 447.
 (pdftex.def)             Requested size: 195.12767pt x 120.8887pt.
 <./img//distance_CNN_noglass.png, id=278, 1273.75874pt x 188.95593pt>
 File: ./img//distance_CNN_noglass.png Graphic file (type png)
 <use ./img//distance_CNN_noglass.png>
-Package pdftex.def Info: ./img//distance_CNN_noglass.png  used on input line 453.
+Package pdftex.def Info: ./img//distance_CNN_noglass.png  used on input line 452.
 (pdftex.def)             Requested size: 390.25534pt x 57.8924pt.
 <./img//correlation_CNN_sunglass.png, id=279, 1176.5556pt x 737.8767pt>
 File: ./img//correlation_CNN_sunglass.png Graphic file (type png)
 <use ./img//correlation_CNN_sunglass.png>
-Package pdftex.def Info: ./img//correlation_CNN_sunglass.png  used on input line 459.
+Package pdftex.def Info: ./img//correlation_CNN_sunglass.png  used on input line 458.
 (pdftex.def)             Requested size: 195.12767pt x 122.36365pt.
 <./img//correlation_Scatnet_sunglass.png, id=280, 1191.0096pt x 737.8767pt>
 File: ./img//correlation_Scatnet_sunglass.png Graphic file (type png)
 <use ./img//correlation_Scatnet_sunglass.png>
-Package pdftex.def Info: ./img//correlation_Scatnet_sunglass.png  used on input line 460.
+Package pdftex.def Info: ./img//correlation_Scatnet_sunglass.png  used on input line 459.
 (pdftex.def)             Requested size: 195.12767pt x 120.8887pt.
 <./img//distance_CNN_sunglass.png, id=281, 1280.53406pt x 190.46156pt>
 File: ./img//distance_CNN_sunglass.png Graphic file (type png)
 <use ./img//distance_CNN_sunglass.png>
-Package pdftex.def Info: ./img//distance_CNN_sunglass.png  used on input line 465.
+Package pdftex.def Info: ./img//distance_CNN_sunglass.png  used on input line 464.
 (pdftex.def)             Requested size: 390.25534pt x 58.04564pt.
  [12 <./img//correlation_CNN.png> <./img//correlation_Scatnet.png> <./img//distance_CNN.png> <./img//correlation_CNN_noglass.png> <./img//correlation_Scatnet_noglass.png> <./img//distance_CNN_noglass.png>]
 <./img//correlation_coef.png, id=300, 1288.0622pt x 163.3603pt>
 File: ./img//correlation_coef.png Graphic file (type png)
 <use ./img//correlation_coef.png>
-Package pdftex.def Info: ./img//correlation_coef.png  used on input line 471.
+Package pdftex.def Info: ./img//correlation_coef.png  used on input line 470.
 (pdftex.def)             Requested size: 390.25534pt x 49.49454pt.
  [13 <./img//correlation_CNN_sunglass.png> <./img//correlation_Scatnet_sunglass.png> <./img//distance_CNN_sunglass.png> <./img//correlation_coef.png>] (report.aux)
 
@@ -664,7 +664,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  75i,21n,79p,551b,549s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {C:/Users/enric/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/cm-super/cm-super-ts1.enc}<C:/Users/enric/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/enric/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/enric/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx8.pfb><C:/Users/enric/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx9.pfb><C:/Users/enric/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/enric/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/enric/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/enric/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/enric/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/enric/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/enric/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/enric/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/enric/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/enric/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/enric/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/enric/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/enric/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/enric/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on report.pdf (13 pages, 6844828 bytes).
+Output written on report.pdf (13 pages, 6844778 bytes).
 PDF statistics:
  424 PDF objects out of 1000 (max. 8388607)
  102 named destinations out of 1000 (max. 500000)

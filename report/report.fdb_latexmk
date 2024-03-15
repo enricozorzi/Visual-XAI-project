@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1709749372 "c:/Users/enric/Visual-XAI-project/report/report.tex" "report.pdf" "report" 1709749377 0
-  "C:/Users/enric/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1709663190 321894 4949324ce60ec45576be41768253b2ec ""
+["pdflatex"] 1710496258 "c:/Users/enric/Visual-XAI-project/report/report.tex" "report.pdf" "report" 1710496263 0
+  "C:/Users/enric/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1709749867 321894 4949324ce60ec45576be41768253b2ec ""
   "C:/Users/enric/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1675034407 23173874 9973c03e7b900a09626a0a950031115b ""
   "C:/Users/enric/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1001771820 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "C:/Users/enric/AppData/Local/Programs/MiKTeX/fonts/tfm/jknappen/ec/tcrm1000.tfm" 993058908 1436 c7f957a372ef2fbe93c0982f96625e12 ""
@@ -97,7 +97,7 @@
   "C:/Users/enric/AppData/Local/Programs/MiKTeX/tex/latex/rerunfilecheck/rerunfilecheck.sty" 1657797096 9714 ba3194bd52c8499b3f1e3eb91d409670 ""
   "C:/Users/enric/AppData/Local/Programs/MiKTeX/tex/latex/subfig/subfig.sty" 1121277410 22049 9ef165ca6df8815c92e693146a376c92 ""
   "C:/Users/enric/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
-  "c:/Users/enric/Visual-XAI-project/report/report.tex" 1709749367 26260 bf828b80baa13a6310c4cd8ef9667b3c ""
+  "c:/Users/enric/Visual-XAI-project/report/report.tex" 1710496257 26208 2f888569e75b4b1c2851379d46bc4045 ""
   "img//CM_less_img.png" 1709603255 71874 72e6733ec1c5d9376e58c2abea30170c ""
   "img//CNN_accuracy_curve.png" 1709669762 255293 8483437f125e8932bb6aa65cb40ad4d3 ""
   "img//CNN_feature_maps.png" 1709674073 198949 88f7d2876e3e692efd21f6e2da3801e7 ""
@@ -134,9 +134,9 @@
   "img//histo_CNN.png" 1709679765 109313 7825898a3eb1f039d0dab561d7703731 ""
   "img//histo_scatnet.png" 1709679704 109405 223db563ebbd2433e00a5878ca43eb8b ""
   "img//shap_vs_ig.png" 1709679552 288947 3dafe1a6d42df7feb11691f721a0f028 ""
-  "report.aux" 1709749377 14013 5e298662a9fea034fe041dc562deb982 "pdflatex"
-  "report.out" 1709749377 4139 8953d6d4ba7c72d1eacf4cd213674331 "pdflatex"
-  "report.tex" 1709749367 26260 bf828b80baa13a6310c4cd8ef9667b3c ""
+  "report.aux" 1710496263 14013 5e298662a9fea034fe041dc562deb982 "pdflatex"
+  "report.out" 1710496263 4139 8953d6d4ba7c72d1eacf4cd213674331 "pdflatex"
+  "report.tex" 1710496257 26208 2f888569e75b4b1c2851379d46bc4045 ""
   (generated)
   "report.aux"
   "report.log"
